@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static void	ft_sort_3(t_lst *alst, t_lst *blst)
+static void	ft_sort_3(t_lst *alst, t_lst *blst, t_op *ops)
 {
 	int a;
 	int b;
@@ -25,37 +25,48 @@ static void	ft_sort_3(t_lst *alst, t_lst *blst)
 	a = alst->head->n;
 	b = alst->head->prev->n;
 	c = alst->tail->n;
-	if (a < b && a < c)
+	if (a > b && a > c)
 	{
-		ft_ra(alst, blst);
-		if (b < c)
-			ft_sa(alst, blst);
+		add_op(ft_ra, alst, blst, ops);
+		if (b > c)
+			add_op(ft_sa, alst, blst, ops);
 	}
-	else if (a < b && a > c)
-		ft_sa(alst, blst);
 	else if (a > b && a < c)
-		ft_rra(alst, blst);
-	if (a > b && a > c && b < c)
+		add_op(ft_sa, alst, blst, ops);
+	else if (a < b && a > c)
+		add_op(ft_rra, alst, blst, ops);
+	if (a < b && a < c && b > c)
 	{
-		ft_sa(alst, blst);
-		ft_ra(alst, blst);
+		add_op(ft_sa, alst, blst, ops);
+		add_op(ft_ra, alst, blst, ops);
 	}
 }
 
 void		algo_fast_sort(t_lst *alst, t_lst *blst, t_op *ops)
 {
-	int i;
+	int med;
 
-	i = 0;
-	if (ft_get_nbr_element(alst) == 3)
+	med = ft_getmed(ft_get_nbr_element(alst), alst->head, ft_get_nbr_element(alst) - 4);
+	if (ft_get_nbr_element(alst) < 10)
 	{
-		ft_sort_3(alst, blst);
+		while (ft_get_nbr_element(alst) != 3)
+		{
+			if (alst->head->n <= med)
+				add_op(ft_pb, alst, blst, ops);
+			else
+				add_op(ft_ra, alst, blst, ops);
+		}
+		ft_sort_3(alst, blst, ops);
+		ft_small_sort(alst,blst, ops);
+		last_optimizer(ops);
+		ft_show_operation(ops);	
 		return ;
 	}
 	else
 	{
-		i += ft_bubble_sort(alst, blst, ops);
-		i += ft_small_sort(alst, blst, ops);
+		ft_bubble_sort(alst, blst, ops);
+		last_optimizer(ops);
+		ft_small_sort(alst, blst, ops);
 		last_optimizer(ops);
 		ft_show_operation(ops);
 	}

@@ -19,6 +19,7 @@ static t_elem_op	*opti_s(t_elem_op *lst)
 	t_elem_op	*tmp;
 	t_elem_op	*tmp2;
 
+	tmp2 = lst;
 	tmp = lst->next;
 	while (tmp && ((ft_strequ(lst->str, "sa") && (ft_strequ(tmp->str, "ra")
 						|| ft_strequ(tmp->str, "rra"))) || (ft_strequ(lst->str, "sb")
@@ -67,6 +68,7 @@ static t_elem_op	*opti_rr(t_elem_op *lst)
 	t_elem_op	*tmp;
 	t_elem_op	*tmp2;
 
+	tmp2 = lst;
 	tmp = lst->next;
 	while (tmp && ((ft_strequ(lst->str, "rra") && (ft_strequ(tmp->str, "sa")
 						|| ft_strequ(tmp->str, "ra"))) || (ft_strequ(lst->str, "rrb")

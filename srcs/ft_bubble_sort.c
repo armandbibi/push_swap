@@ -85,16 +85,25 @@ int				ft_bubble_sort(t_lst *alst, t_lst *blst, t_op *ops)
 {
 	int sizepack;
 	int i;
+	int f_divizer;
+	int s_divizer;
 
+	f_divizer = 4;
+	s_divizer = 4;
+	if (ft_get_nbr_element(alst) > 300)
+	{
+		f_divizer = 10;
+		s_divizer = 15;
+	}
 	i = 0;
-	sizepack = ft_get_nbr_element(alst) / 4 + 2;
+	sizepack = ft_get_nbr_element(alst) / f_divizer;
 	if (ft_get_nbr_element(alst) < 20)
 		sizepack = 3;
 	while (ft_get_nbr_element(alst) > sizepack)
 	{
 		i += get_small_elements(alst, blst, sizepack, ops);
 		if (sizepack > 5)
-			sizepack -= sizepack / 4;
+			sizepack -= sizepack / s_divizer;
 		if (sizepack < 3)
 			sizepack = 3;
 	}

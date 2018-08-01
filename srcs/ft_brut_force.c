@@ -1,5 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
+
 /*                                                        :::      ::::::::   */
 /*   ft_brut_force.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -12,6 +11,7 @@
 
 #include "checker.h"
 #include "push_swap_ab.h"
+#include <limits.h>
 
 static void		*get_next_one(t_lst *blst, int *big)
 {
@@ -23,7 +23,7 @@ static void		*get_next_one(t_lst *blst, int *big)
 	i = 0;
 	rank = 0;
 	tmp = blst->head;
-	max = 0;
+	max = INT_MIN;
 	while (tmp)
 	{
 		if (tmp->n > max)
@@ -42,20 +42,59 @@ static void		*get_next_one(t_lst *blst, int *big)
 		return (ft_rb);
 }
 
-int				ft_small_sort(t_lst *alst, t_lst *blst, t_op *ops)
+static int		get_an_other(t_lst *blst, int *i, int rank, int bigger)
+{	
+	t_stack *tmp;
+
+	(void)rank;
+	*i = INT_MIN;
+	tmp = blst->head;
+	while (tmp)
+	{
+		if (tmp->n < bigger && tmp->n > *i)
+			*i = tmp->n;
+		tmp = tmp->prev;
+	}
+	return (0);
+}
+
+int			ft_small_sort(t_lst *alst, t_lst *blst, t_op *ops)
 {
 	void	(*rotation)(t_lst*, t_lst*);
 	int		bigest_one;
+	int		second_one;
+	int		flag;
 
+	flag = 0;
 	rotation = get_next_one(blst, &bigest_one);
 	while (ft_get_nbr_element(blst))
 	{
 		if (blst->head->n == bigest_one)
 		{
 			add_op(ft_pa, alst, blst, ops);
-			rotation = get_next_one(blst, &bigest_one);
+			if (flag == 5)
+				add_op(ft_rra, alst, blst, ops);
+			rotation = get_next_one(blst, &bigest_one);	
+			flag = 10;
 		}
-		else
+		else if (ft_get_nbr_element(blst) > 3  && flag == 10)
+		{
+			flag = 0;
+			get_an_other(blst, &second_one, 2, bigest_one);
+		}
+		else if (flag != 10)
+		{
+			if (blst->head->n == second_one && flag == 2)
+			{
+				add_op(ft_pa, alst, blst, ops);
+				add_op(ft_ra, alst, blst, ops);
+				flag = 5;
+			}
+			else
+				add_op(rotation, alst, blst, ops);
+
+		}
+		else 
 			add_op(rotation, alst, blst, ops);
 	}
 	return (0);
