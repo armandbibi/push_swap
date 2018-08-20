@@ -6,7 +6,7 @@
 /*   By: abiestro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 03:16:57 by abiestro          #+#    #+#             */
-/*   Updated: 2018/08/20 15:25:10 by abiestro         ###   ########.fr       */
+/*   Updated: 2018/08/20 17:30:39 by abiestro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		algo_fast_sort(t_lst *alst, t_lst *blst, t_op *ops)
 	else
 	{
 		ft_bubble_sort(alst, blst, ops);
+		last_optimizer(ops);
 		ft_small_sort(alst, blst, ops);
 	}
 	last_optimizer(ops);
