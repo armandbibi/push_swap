@@ -6,7 +6,7 @@
 /*   By: abiestro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 19:26:56 by abiestro          #+#    #+#             */
-/*   Updated: 2018/07/30 06:16:27 by abiestro         ###   ########.fr       */
+/*   Updated: 2018/08/20 15:50:30 by abiestro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,27 @@ static void		*get_rotation(t_lst *alst, int sizlst)
 	ra = 0;
 	rra = 0;
 	size = ft_get_nbr_element(alst);
-	high_limit = ft_getmed(size, alst->head, sizlst);
+	high_limit = ft_getmed(size, alst->head, 10);
 	i = 0;
 	j = 0;
 	tmp = alst->head;
-	while (i <= sizlst)
+	while (tmp && i <= sizlst && ++ra)
 	{
 		if (tmp->n <= high_limit)
 			i++;
 		tmp = tmp->prev;
-		ra++;
 	}
 	tmp = alst->tail;
-	while (j <= sizlst)
+	while (tmp && i <= sizlst && ++rra)
 	{
 		if (tmp->n <= high_limit)
-			j++;
+			i++;
 		tmp = tmp->next;
-		rra++;
 	}
-	if (ra <= rra)
+//	if (ra <= rra)
 		return (ft_ra);
-	else
-		return (ft_rra);
+//	else
+		return (ft_ra);
 }
 
 static int		get_small_elements(t_lst *alst,
@@ -59,20 +57,21 @@ static int		get_small_elements(t_lst *alst,
 	int		high_limit;
 	void	(*rotate)(t_lst*, t_lst*);
 	int		med_expected;
+	int		bsize;
 
 	rotate = get_rotation(alst, sizepack);
 	high_limit = ft_getmed(ft_get_nbr_element(alst), alst->head, sizepack);
 	med_expected = ft_getmed(ft_get_nbr_element(alst),
 			alst->head, sizepack / 2);
-	while (sizepack)
+	while (sizepack > 4)
 	{
 		if (alst->head->n <= high_limit)
 		{
 			add_op(ft_pb, alst, blst, ops);
 			sizepack--;
-			int bsize = ft_get_nbr_element(blst);
+			bsize = ft_get_nbr_element(blst);
 			if (bsize > 3 && blst->head->n > med_expected)
-				add_op(ft_rb, alst, blst, ops);	
+				add_op(ft_rb, alst, blst, ops);
 			rotate = get_rotation(alst, sizepack - 1);
 		}
 		else
@@ -84,7 +83,6 @@ static int		get_small_elements(t_lst *alst,
 int				ft_bubble_sort(t_lst *alst, t_lst *blst, t_op *ops)
 {
 	int sizepack;
-	int i;
 	int f_divizer;
 	int s_divizer;
 
@@ -93,24 +91,20 @@ int				ft_bubble_sort(t_lst *alst, t_lst *blst, t_op *ops)
 	if (ft_get_nbr_element(alst) > 300)
 	{
 		f_divizer = 10;
-		s_divizer = 15;
+		s_divizer = 30;
 	}
-	i = 0;
 	sizepack = ft_get_nbr_element(alst) / f_divizer;
 	if (ft_get_nbr_element(alst) < 20)
 		sizepack = 3;
 	while (ft_get_nbr_element(alst) > sizepack)
 	{
-		i += get_small_elements(alst, blst, sizepack, ops);
+		get_small_elements(alst, blst, sizepack, ops);
 		if (sizepack > 5)
 			sizepack -= sizepack / s_divizer;
 		if (sizepack < 3)
 			sizepack = 3;
 	}
 	while (alst->tail)
-	{
 		add_op(ft_pb, alst, blst, ops);
-		i++;
-	}
-	return (i);
+	return (0);
 }

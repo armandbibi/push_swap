@@ -1,9 +1,19 @@
-#ifndef	LIBFT_H
-# define LIBFT_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abiestro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/20 17:10:33 by abiestro          #+#    #+#             */
+/*   Updated: 2018/08/20 17:11:42 by abiestro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#ifndef LIBFT_H
+# define LIBFT_H
 # define TRUE 1
 # define FALSE 0
-
 # include <stdlib.h>
 
 typedef int	t_bool;

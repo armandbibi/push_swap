@@ -1,11 +1,12 @@
-
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_brut_force.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abiestro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/19 18:47:27 by abiestro          #+#    #+#             */
-/*   Updated: 2018/07/30 07:09:08 by abiestro         ###   ########.fr       */
+/*   Created: 2018/08/18 15:51:13 by abiestro          #+#    #+#             */
+/*   Updated: 2018/08/20 15:44:18 by abiestro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +44,7 @@ static void		*get_next_one(t_lst *blst, int *big)
 }
 
 static int		get_an_other(t_lst *blst, int *i, int rank, int bigger)
-{	
+{
 	t_stack *tmp;
 
 	(void)rank;
@@ -55,14 +56,38 @@ static int		get_an_other(t_lst *blst, int *i, int rank, int bigger)
 			*i = tmp->n;
 		tmp = tmp->prev;
 	}
-	return (0);
+	return (1);
 }
 
-int			ft_small_sort(t_lst *alst, t_lst *blst, t_op *ops)
+int				ft_opti_second_value(t_lst *alst, t_lst *blst,
+		t_op *ops, int *flag)
 {
 	void	(*rotation)(t_lst*, t_lst*);
 	int		bigest_one;
 	int		second_one;
+
+	rotation = get_next_one(blst, &bigest_one);
+	second_one = INT_MIN;
+	if (ft_get_nbr_element(blst) > 3 && *flag == 10 &&
+			get_an_other(blst, &second_one, 2, bigest_one))
+	{
+		*flag = 0;
+		return (1);
+	}
+	else if (blst->head->n == second_one && *flag == 0 && (*flag = 5))
+	{
+		add_op(ft_pa, alst, blst, ops);
+		add_op(ft_ra, alst, blst, ops);
+		return (1);
+	}
+	else
+		return (0);
+}
+
+int				ft_small_sort(t_lst *alst, t_lst *blst, t_op *ops)
+{
+	void	(*rotation)(t_lst*, t_lst*);
+	int		bigest_one;
 	int		flag;
 
 	flag = 0;
@@ -74,27 +99,12 @@ int			ft_small_sort(t_lst *alst, t_lst *blst, t_op *ops)
 			add_op(ft_pa, alst, blst, ops);
 			if (flag == 5)
 				add_op(ft_rra, alst, blst, ops);
-			rotation = get_next_one(blst, &bigest_one);	
+			rotation = get_next_one(blst, &bigest_one);
 			flag = 10;
 		}
-		else if (ft_get_nbr_element(blst) > 3  && flag == 10)
-		{
-			flag = 0;
-			get_an_other(blst, &second_one, 2, bigest_one);
-		}
-		else if (flag != 10)
-		{
-			if (blst->head->n == second_one && flag == 2)
-			{
-				add_op(ft_pa, alst, blst, ops);
-				add_op(ft_ra, alst, blst, ops);
-				flag = 5;
-			}
-			else
-				add_op(rotation, alst, blst, ops);
-
-		}
-		else 
+		else if (ft_opti_second_value(alst, blst, ops, &flag) != 0)
+			;
+		else
 			add_op(rotation, alst, blst, ops);
 	}
 	return (0);

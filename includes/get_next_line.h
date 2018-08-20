@@ -6,7 +6,7 @@
 /*   By: triou <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/11 11:01:35 by triou             #+#    #+#             */
-/*   Updated: 2018/06/23 19:30:06 by triou            ###   ########.fr       */
+/*   Updated: 2018/08/20 17:04:58 by abiestro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,3 @@ typedef struct		s_line
 int					get_next_line(const int fd, char **line);
 
 #endif
-
-

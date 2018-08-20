@@ -6,7 +6,7 @@
 /*   By: abiestro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 02:36:03 by abiestro          #+#    #+#             */
-/*   Updated: 2018/07/30 05:41:36 by abiestro         ###   ########.fr       */
+/*   Updated: 2018/08/18 15:18:07 by abiestro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static t_elem_op	*opti_s(t_elem_op *lst)
 	tmp2 = lst;
 	tmp = lst->next;
 	while (tmp && ((ft_strequ(lst->str, "sa") && (ft_strequ(tmp->str, "ra")
-						|| ft_strequ(tmp->str, "rra"))) || (ft_strequ(lst->str, "sb")
-					&& (ft_strequ(tmp->str, "rb") || ft_strequ(tmp->str, "rrb")))))
+			|| ft_strequ(tmp->str, "rra"))) || (ft_strequ(lst->str, "sb")
+			&& (ft_strequ(tmp->str, "rb") || ft_strequ(tmp->str, "rrb")))))
 	{
 		tmp2 = tmp;
 		tmp = tmp->next;
@@ -36,7 +36,6 @@ static t_elem_op	*opti_s(t_elem_op *lst)
 		free(tmp);
 	}
 	return (lst->next);
-
 }
 
 static t_elem_op	*opti_r(t_elem_op *lst)
@@ -47,8 +46,8 @@ static t_elem_op	*opti_r(t_elem_op *lst)
 	tmp2 = lst;
 	tmp = lst->next;
 	while (tmp && ((ft_strequ(lst->str, "ra") && (ft_strequ(tmp->str, "sa")
-						|| ft_strequ(tmp->str, "rra"))) || (ft_strequ(lst->str, "rb")
-					&& (ft_strequ(tmp->str, "sb") || ft_strequ(tmp->str, "rrb")))))
+			|| ft_strequ(tmp->str, "rra"))) || (ft_strequ(lst->str, "rb")
+			&& (ft_strequ(tmp->str, "sb") || ft_strequ(tmp->str, "rrb")))))
 	{
 		tmp2 = tmp;
 		tmp = tmp->next;
@@ -56,7 +55,7 @@ static t_elem_op	*opti_r(t_elem_op *lst)
 	if (tmp && ((ft_strequ(tmp->str, "rb") && ft_strequ(lst->str, "ra"))
 				|| (ft_strequ(tmp->str, "ra") && ft_strequ(lst->str, "rb"))))
 	{
-		ft_strcpy(lst->str, "rr");;
+		ft_strcpy(lst->str, "rr");
 		tmp2->next = tmp->next;
 		free(tmp);
 	}
@@ -71,8 +70,8 @@ static t_elem_op	*opti_rr(t_elem_op *lst)
 	tmp2 = lst;
 	tmp = lst->next;
 	while (tmp && ((ft_strequ(lst->str, "rra") && (ft_strequ(tmp->str, "sa")
-						|| ft_strequ(tmp->str, "ra"))) || (ft_strequ(lst->str, "rrb")
-					&& (ft_strequ(tmp->str, "sb") || ft_strequ(tmp->str, "rb")))))
+			|| ft_strequ(tmp->str, "ra"))) || (ft_strequ(lst->str, "rrb")
+			&& (ft_strequ(tmp->str, "sb") || ft_strequ(tmp->str, "rb")))))
 	{
 		tmp2 = tmp;
 		tmp = tmp->next;
@@ -80,14 +79,14 @@ static t_elem_op	*opti_rr(t_elem_op *lst)
 	if (tmp && ((ft_strequ(tmp->str, "rrb") && ft_strequ(lst->str, "rra"))
 				|| (ft_strequ(tmp->str, "rra") && ft_strequ(lst->str, "rrb"))))
 	{
-		ft_strcpy(lst->str, "rrr");;
+		ft_strcpy(lst->str, "rrr");
 		tmp2->next = tmp->next;
 		free(tmp);
 	}
 	return (lst->next);
 }
 
-void	last_optimizer(t_op *ops)
+void				last_optimizer(t_op *ops)
 {
 	t_elem_op *lst;
 
