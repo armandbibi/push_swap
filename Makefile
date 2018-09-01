@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: abiestro <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/06/18 08:57:44 by triou             #+#    #+#              #
-#    Updated: 2018/07/30 05:04:17 by abiestro         ###   ########.fr        #
+#    Created: 2018/06/18 08:57:44 by abiestro          #+#    #+#              #
+#    Updated: 2018/09/01 17:52:48 by abiestro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ $(ODIR)/%.o : $(SDIR)/%.c $(INCLUDES)
 
 clean :
 	@$(MAKE) -C $(LDIR) clean
-	@rm -r $(ODIR)
+	@rm -rf $(ODIR)
 
 fclean : clean
 	@$(MAKE) -C $(LDIR) fclean

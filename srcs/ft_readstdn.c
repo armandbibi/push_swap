@@ -6,7 +6,7 @@
 /*   By: abiestro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 14:50:59 by triou             #+#    #+#             */
-/*   Updated: 2018/06/26 22:36:32 by triou            ###   ########.fr       */
+/*   Updated: 2018/09/01 17:28:18 by abiestro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	ft_readstdn(t_lst *alst, t_lst *blst, t_bool v)
 		free(line);
 		line = NULL;
 	}
+	free(line);
 }
