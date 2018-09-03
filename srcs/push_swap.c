@@ -6,7 +6,7 @@
 /*   By: abiestro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 17:00:47 by abiestro          #+#    #+#             */
-/*   Updated: 2018/09/01 17:09:49 by abiestro         ###   ########.fr       */
+/*   Updated: 2018/09/03 17:00:35 by abiestro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 	if (ac < 2 || ((v = ft_strequ("-v", av[1])) && ac < 3))
 		return (0);
 	ft_readparams(ac, av, v + 1, &alst);
-	if (ft_issort(alst.head))
+	if (ft_issort(alst.head) & !(blst.head))
 		;
 	else
 		algo_fast_sort(&alst, &blst, &ops);
